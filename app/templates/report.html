@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Amortization Report | EMI Calculator{% endblock %}
+{% block content %}
+<h1>Amortization report</h1>
+<p class="loan-line" data-testid="loan-details">Loading loan details…</p>
+
+<form id="filter-form" class="panel filters" aria-label="Report filters" novalidate>
+  <fieldset>
+    <legend>View</legend>
+    <label><input type="radio" name="view" value="yearly" checked> Yearly</label>
+    <label><input type="radio" name="view" value="monthly"> Monthly</label>
+  </fieldset>
+  <div class="field">
+    <label for="from-year">From year</label>
+    <select id="from-year" name="from_year"></select>
+  </div>
+  <div class="field">
+    <label for="to-year">To year</label>
+    <select id="to-year" name="to_year"></select>
+  </div>
+  <button type="submit">Apply filters</button>
+  <p class="error" role="alert" data-testid="filter-error"></p>
+</form>
+
+<section class="panel" aria-labelledby="schedule-heading">
+  <h2 id="schedule-heading">Payment schedule</h2>
+  <figure class="chart wide" data-testid="yearly-chart">
+    <canvas role="img" aria-label="Yearly principal and interest chart"></canvas>
+    <figcaption>Principal and interest paid per year</figcaption>
+  </figure>
+
+  <div class="table-wrap">
+    <table aria-label="Amortization schedule" data-testid="schedule-table">
+      <thead>
+        <tr>
+          <th scope="col">Period</th>
+          <th scope="col">Principal</th>
+          <th scope="col">Interest</th>
+          <th scope="col">Total payment</th>
+          <th scope="col">Balance</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr data-testid="totals-row">
+          <th scope="row">Total</th>
+          <td data-testid="total-principal"></td>
+          <td data-testid="total-interest"></td>
+          <td data-testid="total-paid"></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <a href="/" class="button-link">Back to dashboard</a>
+</section>
+{% endblock %}
+{% block scripts %}<script>EmiApp.initReport();</script>{% endblock %}

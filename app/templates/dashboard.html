@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}EMI Calculator{% endblock %}
+{% block content %}
+<h1>EMI Calculator</h1>
+
+<div class="layout">
+  <form id="loan-form" class="panel" aria-label="Loan details" novalidate>
+    <div class="field">
+      <label for="amount">Loan amount</label>
+      <input id="amount" name="amount" type="text" inputmode="decimal" value="1000000"
+             aria-describedby="amount-error" data-testid="amount-input">
+      <input type="range" min="10000" max="20000000" step="10000" value="1000000"
+             aria-label="Loan amount slider" data-syncs="amount">
+      <p id="amount-error" class="error" role="alert" data-testid="amount-error"></p>
+    </div>
+
+    <div class="field">
+      <label for="rate">Interest rate (% p.a.)</label>
+      <input id="rate" name="rate" type="text" inputmode="decimal" value="10.5"
+             aria-describedby="rate-error" data-testid="rate-input">
+      <input type="range" min="0" max="30" step="0.05" value="10.5"
+             aria-label="Interest rate slider" data-syncs="rate">
+      <p id="rate-error" class="error" role="alert" data-testid="rate-error"></p>
+    </div>
+
+    <div class="field">
+      <label for="years">Loan tenure (years)</label>
+      <input id="years" name="years" type="text" inputmode="numeric" value="5"
+             aria-describedby="years-error" data-testid="years-input">
+      <input type="range" min="1" max="30" step="1" value="5"
+             aria-label="Loan tenure slider" data-syncs="years">
+      <p id="years-error" class="error" role="alert" data-testid="years-error"></p>
+    </div>
+
+    <button type="submit">Calculate</button>
+  </form>
+
+  <section class="panel" aria-labelledby="summary-heading">
+    <h2 id="summary-heading">Loan summary</h2>
+    <div class="cards" data-testid="summary-cards">
+      <div class="card">
+        <h3 id="emi-label">Monthly EMI</h3>
+        <p class="card-value" data-testid="emi-value" aria-labelledby="emi-label">—</p>
+      </div>
+      <div class="card">
+        <h3 id="interest-label">Total interest</h3>
+        <p class="card-value" data-testid="total-interest-value" aria-labelledby="interest-label">—</p>
+      </div>
+      <div class="card">
+        <h3 id="payment-label">Total payment</h3>
+        <p class="card-value" data-testid="total-payment-value" aria-labelledby="payment-label">—</p>
+      </div>
+    </div>
+
+    <p class="error" role="alert" data-testid="request-error"></p>
+
+    <figure class="chart" data-testid="breakup-chart">
+      <canvas role="img" aria-label="Principal vs interest chart"></canvas>
+      <figcaption>Break-up of total payment</figcaption>
+    </figure>
+
+    <a id="report-link" href="/report" class="button-link">View amortization report</a>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}<script>EmiApp.initDashboard();</script>{% endblock %}
