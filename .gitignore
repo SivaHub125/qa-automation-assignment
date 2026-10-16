@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# local secrets (e.g. an LLM API key for the self-healing Option B)
+config/.env.secrets
